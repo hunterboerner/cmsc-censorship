@@ -4,7 +4,7 @@ Adversaries on the Internet may attempt to prevent access to various
 information. As a result of these censorship efforts developers have made a
 variety of systems for circumventing said blocks. The largest variety of efforts
 have been targeted at sharing files with fewer attempts at providing general
-access to the internet over HTTP/HTTPS.
+access to the internet over \textsc{HTTP}/\textsc{HTTPS}.
 
 We will examine various protocols for filesharing and their susceptibility to
 censorship.
@@ -17,13 +17,28 @@ protocols---SMB, NFS, and AFP. In this section we will compare them.
 
 \subsubsection{Apple File Protocol (AFP)}
 
-AFP is a legacy protocol for file sharing on macOS. It has been replaced by SMB.
+AFP is a legacy protocol for file sharing in older macOS environments. It is
+able to preserve macOS-specific metadata, which enables plug-and-play file
+Some of its key features include:
+\begin{itemize}[nosep]
+  \item A stateful connection shares for macOS users.
+  \item Metadata caching tailored to small-size macOS files
+        Support for Kerberos single-sign-on and standard POSIX permissions on shares for AFP 3.1+
+  \item Fast transmission speed for macOS workflows that require Mac-specific metadata
+  \item Minimal support in non-Apple operating systems
+\end{itemize}
+It has been replaced with SMB.
 
 \subsubsection{Network File System (NFS)}
 
 The NFS protocol is a fairly filesharing protocol described in RFC
-1094\cite{NFSNetworkFile1989}.
-
+1094\cite{NFSNetworkFile1989}. It applies primarily to Unix and Linux installations, particularly in servers. It was designed to provide a lightweight and stateless mechanism through which Unix hosts might mount remote directories transparently. Its key features include:
+\begin{itemize}[nosep]
+  \item Statelessness for version 2 or 3, with optional statefulness in version 4;
+  \item Employs flush-on-close strategy for caching;
+  \item Relies on trusting clients unless DES or Kerberos is configured explicitly;
+  \item
+\end{itemize}
 
 \subsubsection{Server Message Block (SMB)}
 
