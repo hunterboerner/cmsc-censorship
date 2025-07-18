@@ -22,13 +22,13 @@ AFP is a legacy protocol for file sharing in older macOS environments. It is
 able to preserve macOS-specific metadata, which enables plug-and-play file
 Some of its key features include\cite{eriksenCOMPARISONNFSSAMBA}:
 \begin{itemize}[nosep]
-    \item A stateful connection shares for macOS users.
-    \item Metadata caching tailored to small-size macOS files Support for
-          Kerberos single-sign-on and standard \textsc{posix} permissions on
-          shares for \textsc{afp}~3.1+
-    \item Fast transmission speed for macOS workflows that require Mac-specific
-          metadata
-    \item Minimal support in non-Apple operating systems
+      \item A stateful connection shares for macOS users.
+      \item Metadata caching tailored to small-size macOS files Support for
+            Kerberos single-sign-on and standard \textsc{posix} permissions on
+            shares for \textsc{afp}~3.1+
+      \item Fast transmission speed for macOS workflows that require Mac-specific
+            metadata
+      \item Minimal support in non-Apple operating systems
 \end{itemize}
 The \textsc{afp} protocol has been replaced with \textsc{smb}, even in macOS
 environments.
@@ -38,15 +38,15 @@ environments.
 The NFS protocol is a fairly filesharing protocol described in RFC
 1094\cite{NFSNetworkFile1989,eriksenCOMPARISONNFSSAMBA}. It applies primarily to Unix and Linux installations, particularly in servers. It was designed to provide a lightweight and stateless mechanism through which Unix hosts might mount remote directories transparently. Its key features include:
 \begin{itemize}[nosep]
-    \item Statelessness for version 2 or 3, with optional statefulness in
-          version 4;
-    \item Employs flush-on-close strategy for caching;
-    \item Relies on trusting clients unless DES or Kerberos is configured
-          explicitly;
-    \item Provides outstanding performance on Linux/Unix, especially for
-          frequent small read and writes;
-    \item Achieves optimal performance when all clients are Unix/Linux, but
-          still functions on Windows with extra client software.
+      \item Statelessness for version 2 or 3, with optional statefulness in
+            version 4;
+      \item Employs flush-on-close strategy for caching;
+      \item Relies on trusting clients unless DES or Kerberos is configured
+            explicitly;
+      \item Provides outstanding performance on Linux/Unix, especially for
+            frequent small read and writes;
+      \item Achieves optimal performance when all clients are Unix/Linux, but
+            still functions on Windows with extra client software.
 \end{itemize}
 The NFS protocol is still prevalent on Linux/Unix platforms today.
 \subsubsection{Server Message Block (\textsc{smb})}
@@ -54,53 +54,66 @@ The NFS protocol is still prevalent on Linux/Unix platforms today.
 The SMB protocol is a widely-used file sharing protocol primarily designed for
 Windows environments. Its key features include\cite{eriksenCOMPARISONNFSSAMBA}:
 \begin{itemize}[nosep]
-    \item Statefulness and the using of opportunistic locks to boost speed;
-    \item Read-ahead and write-behind functions together with opportunistic
-          locks to help clients cache aggressively;
-    \item Security measures such as Kerberos, NTLMv2, message signing and
-          optional encryption;
-    \item Optimal performance on Windows and newer macOS with SMB 3 support;
-    \item Excellent compatibility as the protocol is built into most modern
-          platforms including Windows, macOS, and Linux.
+      \item Statefulness and the using of opportunistic locks to boost speed;
+      \item Read-ahead and write-behind functions together with opportunistic
+            locks to help clients cache aggressively;
+      \item Security measures such as Kerberos, NTLMv2, message signing and
+            optional encryption;
+      \item Optimal performance on Windows and newer macOS with SMB 3 support;
+      \item Excellent compatibility as the protocol is built into most modern
+            platforms including Windows, macOS, and Linux.
 \end{itemize}
 The SMB protocol has successfully replaced AFP even in pure macOS environments.
 It has therefore become the default choice for modern networks with mixed devices.
 \subsection{Usenet}
-\subsubsection{Historical Context\cite{HowUseUsenet}}
+
 Usenet emerged in 1980 at Duke University, where it initially served as a
 bulletin board system but later evolved into a global network of distributed
-discussion forums. It organized discussions into thousands of newsgroups
-covering different topics, where users would post messages in threads. By 1999,
-the size of Usenet had already reached approximately 20,000 newsgroups, making
-it one of the most diverse platforms on the Internet.
+discussion forums.\cite{HowUseUsenet} It organized discussions into thousands of
+newsgroups covering different topics, where users would post messages in
+threads. By 1999, the size of Usenet had already reached approximately 20,000
+newsgroups, making it one of the most diverse platforms on the Internet.
+As per Ohm's framework, Usenet is an exempular "Stage II" Internet space which remains vibrant despite having moved beyond the initial creation phase -- it still accommodates frequent creation of alternative spaces, evidenced by the community's strong self-governance abilties elaborated above.\cite{ohmRegulatingInternetUsenet1998}
 
-\subsubsection{The Architecture of Usenet\cite{HowUseUsenet}}
-The design of Usenet was unprecedented at the time -- instead of storing data
-centrally at servers, Usenet messages are designed to be stored in a
-decentralized way in that messages are propagated from server to server
-throughout the network via a "flooding routing algorithm", where each news
-server maintains connections to one or more neighbor servers via dedicated
-``news feeds.'' The Network News Transfer Protocol (\textsc{nntp}) is thereby
-invented: when a new message arrives, each server compares the message's unique
-Message-ID header against local database to prevent duplicate storage, and then
-forwards novel messages to all neighboring servers. As a result of Usenet's
-decentralized nature, "no one party or organization controls or can control
-Usenet" since ``every administrator controls [their] own site''.
+\subsubsection{The Architecture of Usenet} The design of
+Usenet was unprecedented at the time -- instead of storing data centrally at
+servers, Usenet messages are designed to be stored in a decentralized way in
+that messages are propagated from server to server throughout the network via a
+``flooding routing algorithm'', where each news server maintains connections to
+one or more neighbor servers via dedicated ``news feeds.'' \cite{HowUseUsenet}
+The Network News Transfer Protocol (\textsc{nntp}) is thereby invented: when a
+new message arrives, each server compares the message's unique Message-ID header
+against local database to prevent duplicate storage, and then forwards novel
+messages to all neighboring servers. As a result of Usenet's decentralized
+nature, "no one party or organization controls or can control Usenet" since
+``every administrator controls [their] own site''.
 
-\subsubsection{Self-Governance: the Netiquette\cite{HowUseUsenet}}
+\subsubsection{Self-Governance: the Netiquette}
 
 In order to regulate online behavior in Usenet forums, informal rules, later
 termed ``netiquette'' as a portmanteau of ``net'' and ``etiquette'', came into
-existence among early Usenet users. The extent of netiquette covered guidelines
-for commercial posts, cross-posting limits, and subject conventions. A set of
-escalating responses were applied as conflict resolution mechanisms, ranging
-from polite education and "frequently asked questions" (\textsc{faq}) files to
-more aggressive technical countermeasures such as banning. Earliest quality
-control measures also arose, including but not limited to requiring descriptive
-subject lines for easier filtering, creating moderated newsgroups where posts
-are reviewed pre-publication, and developing keyword systems.
+existence among early Usenet users.\cite{HowUseUsenet} The extent of netiquette
+covered guidelines for commercial posts, cross-posting limits, and subject
+conventions. A set of escalating responses were applied as conflict resolution
+mechanisms, ranging from polite education and "frequently asked questions"
+(\textsc{faq}) files to more aggressive technical countermeasures such as
+banning. Earliest quality control measures also arose, including but not limited
+to requiring descriptive subject lines for easier filtering, creating moderated
+newsgroups where posts are reviewed pre-publication, and developing keyword
+systems.
 
 \subsubsection{Case Study: The Cancel Wars}
+The Usenet was equipped with a built-in ``cancel-message'' feature, which was
+originally designed to enable users to delete their own posts. However, the tool
+was soon weaponized when users discovered that forging addresses allowed them to
+cancel anyone's messages. This feature was utilized by anti-spam activists --
+who began with good intentions -- to empower automated ``cancelbots'' to detect
+and remove commercial spams, while others revenge by creating ``resurrector
+bots'' that automatically repost cancelled messages. The conflict between two
+parties eventually escalated to include ``Usenet Death Penalities'' (cancelling
+all posts from entire ISPs) and sophisticated filtering systems such as
+``NoCeM'' that hide rather than delete undesirable messages.
+
 
 
 \cite{HowUseUsenet,ohmRegulatingInternetUsenet1998}
@@ -112,6 +125,10 @@ are reviewed pre-publication, and developing keyword systems.
 \subsection{Shadow Libraries}
 
 \subsection{Tor}
+
+TODO: \cite{iszaevichDistributedDetectionTor2019} discusses Tor in Mexico.
+\cite{hollerCaseStudyDDoS2024} discusses DDOS attacks on Tor relays.
+
 \subsection{I2P}
 
 \subsection{IPFS}
