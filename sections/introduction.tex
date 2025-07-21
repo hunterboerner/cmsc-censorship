@@ -157,11 +157,28 @@ If you have bought a home WiFi router in recent years you might have seen
 ``mesh'' networks. These are WiFi devices that relay messages in the zone of a
 single access point (AP) to extend the range of your connection. Similarly, mesh
 networks can be used for communication.
-\cite{kamaliAnixAnonymousBlackoutResistant} The beauty of mesh topology lies in its self-healing properties---when one node fails, the network automatically reroutes traffic through alternative paths, making it inherently resilient.
-We can easily extend this usage of
-text-based communication to sharing files. In fact, there has been considerable research in this area, part
+% \cite{kamaliAnixAnonymousBlackoutResistant}
+The beauty of mesh topology lies in
+its self-healing properties---when one node fails, the network automatically
+reroutes traffic through alternative paths, making it inherently resilient.
+% \cite{akyildizWirelessMeshNetworks2005,cilfoneWirelessMeshNetworking2019}
+We can easily extend this usage of text-based communication to sharing files.
+In fact, there has been considerable research in this area, particularly around
+peer-to-peer file sharing architectures that leverage the multi-hop nature of
+mesh networks.
+% \cite{alasaadPeerpeerFileSharing2009,yangMeshFSDistributedFile2017}.
+These
+systems can distribute content efficiently across mesh nodes, with some
+implementations using network coding techniques to optimize data transmission.
+% \cite{kimbaditadamouCooperativeFileSharing2009a}
+What makes mesh networks
+particularly interesting for censorship resistance is their decentralized
+nature---there is no single point of control that can be easily targeted or shut
+down.
+% \cite{ivanovicChartingCensorshipResilience2024a}.
 
-\subsection{Bittorrent} \label{bittorrent}
+\subsection{Bittorrent}
+\label{bittorrent}
 
 Bittorrent (BT) is one of the most popular ways of sharing files online. The
 idea behind BT is that the \emph{parts} of a file which are
@@ -207,20 +224,18 @@ The Onion Router (Tor, \cite{TorProjectPrivacy}) is a novel system for providing
 anonymous access to the Internet via \emph{circuits} of guard, relay, and exit
 nodes. When you run Tor, your computer picks the three aforementioned nodes and
 then encrypts your message in layers (like an onion) so that the message can be
-transitted across the circuit such that each node only knows the previous and
+transmitted across the circuit such that each node only knows the previous and
 next stops.
 
+% TODO: \cite{iszaevichDistributedDetectionTor2019} discusses Tor in Mexico.
+% \cite{hollerCaseStudyDDoS2024} discusses DDOS attacks on Tor relays.
+
+
 Tor uses centralized Directory Authorities \cite{TorProjectDirectory} to create
-the list of relays.
-
-TODO: \cite{iszaevichDistributedDetectionTor2019} discusses Tor in Mexico.
-\cite{hollerCaseStudyDDoS2024} discusses DDOS attacks on Tor relays.
-
-
-Tor uses fixed circuits for bidirectional
-communication.\cite{AnalyzingTrendsTor} Tor relays have one of four specialized
-roles: Guard, Middle, Exit, and Bridge. Unlike I2P, clients are not also
-routers.
+the list of relays, a potential attack vector. Tor uses fixed circuits for
+bidirectional communication.\cite{AnalyzingTrendsTor} Tor relays have one of
+four specialized roles: Guard, Middle, Exit, and Bridge. Unlike I2P, clients are
+not also routers.
 
 \subsection{I2P}\label{i2p}
 
@@ -230,7 +245,10 @@ equivalent fo Tor's onion servics. I2P uses a DHT for routers unlike Tor's
 centralized Directory Authorities.\cite{NetworkDatabaseI2P} Despite this, I2P
 has centralization when ``bootstrapping'' using the reseed servers.
 
-I2P uses uni-directional packet switching \cite{I2PComparedTor}.
+I2P uses unui-directional packet switching \cite{I2PComparedTor} whera Tor uses
+bi-directional circuits. Furthermore, I2P uses \emph{garlic routing} which is
+very similar to onion routing but where related messages going to the next hop
+are bundleed together.
 
 \subsection{IPFS}\label{ipfs}
 
@@ -243,7 +261,7 @@ system. If you don't pin a file its local storage is treated as a cachce
 
 \subsection{Legally Hardened System}
 
-There is a paper that described a \textsc{p2p} system which doesn't require a
+There is a paper that describes a \textsc{p2p} system which doesn't require a
 file to be stored (even encrypted) on a
 node.\cite{CensorshipresistantAnonymousP2P} This provides the advantage that if
 a censor knows the fingerprint of a file then they will no be able to block the
@@ -251,9 +269,9 @@ file on this network as only the receiver is able to identify the file being
 transmitted.
 
 
-In the \textsc{ipfs} there is (or was) a mechanism for censoring content by
-messing with the Distributed Hash
-Table.\cite{sridharContentCensorshipInterPlanetary2023}
+% In the \textsc{ipfs} there is (or was) a mechanism for censoring content by
+% messing with the Distributed Hash
+% Table.\cite{sridharContentCensorshipInterPlanetary2023}
 
 \subsection{Motivations for Stealing}
 In a study conducted in Singapore, the authors found that users of \textsc{p2p}
