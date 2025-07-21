@@ -13,67 +13,104 @@ censorship.
 
 There are three main operating systems in use around the world: Windows,
 \textsc{gnu}/Linux, and macOS. Correspondingly, there are three main filesharing
-protocols---\textsc{smb}, \textsc{nfs}, and \textsc{afs}. In this section we will
-compare them.
+protocols---\textsc{smb}, \textsc{nfs}, and \textsc{afs}. The differences
+between the protocols isn't very important. What matters is that these are
+commonly used internally within a network and not for the public to access.
 
-\subsubsection{Apple File Protocol (\textsc{afp})}
+% \subsubsection{Apple File Protocol (\textsc{afp})}
 
-AFP is a legacy protocol for file sharing in older macOS environments. It is
-able to preserve macOS-specific metadata, which enables plug-and-play file
-Some of its key features include\cite{eriksenCOMPARISONNFSSAMBA}:
-\begin{itemize}[nosep]
-      \item A stateful connection shares for macOS users.
-      \item Metadata caching tailored to small-size macOS files Support for
-            Kerberos single-sign-on and standard \textsc{posix} permissions on
-            shares for \textsc{afp}~3.1+
-      \item Fast transmission speed for macOS workflows that require Mac-specific
-            metadata
-      \item Minimal support in non-Apple operating systems
-\end{itemize}
-The \textsc{afp} protocol has been replaced with \textsc{smb}, even in macOS
-environments.
+% AFP is a legacy protocol for file sharing in older macOS environments. It is
+% able to preserve macOS-specific metadata, which enables plug-and-play file
+% Some of its key features include\cite{eriksenCOMPARISONNFSSAMBA}:
+% \begin{itemize}[nosep]
+%       \item A stateful connection shares for macOS users.
+%       \item Metadata caching tailored to small-size macOS files Support for
+%             Kerberos single-sign-on and standard \textsc{posix} permissions on
+%             shares for \textsc{afp}~3.1+
+%       \item Fast transmission speed for macOS workflows that require Mac-specific
+%             metadata
+%       \item Minimal support in non-Apple operating systems
+% \end{itemize}
+% The \textsc{afp} protocol has been replaced with \textsc{smb}, even in macOS
+% environments.
 
-\subsubsection{Network File System (\textsc{nfs})}
+% \subsubsection{Network File System (\textsc{nfs})}
 
-The NFS protocol is a fairly filesharing protocol described in RFC
-1094\cite{NFSNetworkFile1989,eriksenCOMPARISONNFSSAMBA}. It applies primarily to Unix and Linux installations, particularly in servers. It was designed to provide a lightweight and stateless mechanism through which Unix hosts might mount remote directories transparently. Its key features include:
-\begin{itemize}[nosep]
-      \item Statelessness for version 2 or 3, with optional statefulness in
-            version 4;
-      \item Employs flush-on-close strategy for caching;
-      \item Relies on trusting clients unless DES or Kerberos is configured
-            explicitly;
-      \item Provides outstanding performance on Linux/Unix, especially for
-            frequent small read and writes;
-      \item Achieves optimal performance when all clients are Unix/Linux, but
-            still functions on Windows with extra client software.
-\end{itemize}
-The NFS protocol is still prevalent on Linux/Unix platforms today.
-\subsubsection{Server Message Block (\textsc{smb})}
+% The NFS protocol is a fairly filesharing protocol described in RFC
+% 1094\cite{NFSNetworkFile1989,eriksenCOMPARISONNFSSAMBA}. It applies primarily to Unix and Linux installations, particularly in servers. It was designed to provide a lightweight and stateless mechanism through which Unix hosts might mount remote directories transparently. Its key features include:
+% \begin{itemize}[nosep]
+%       \item Statelessness for version 2 or 3, with optional statefulness in
+%             version 4;
+%       \item Employs flush-on-close strategy for caching;
+%       \item Relies on trusting clients unless DES or Kerberos is configured
+%             explicitly;
+%       \item Provides outstanding performance on Linux/Unix, especially for
+%             frequent small read and writes;
+%       \item Achieves optimal performance when all clients are Unix/Linux, but
+%             still functions on Windows with extra client software.
+% \end{itemize}
+% The NFS protocol is still prevalent on Linux/Unix platforms today.
+% \subsubsection{Server Message Block (\textsc{smb})}
 
-The SMB protocol is a widely-used file sharing protocol primarily designed for
-Windows environments. Its key features include\cite{eriksenCOMPARISONNFSSAMBA}:
-\begin{itemize}[nosep]
-      \item Statefulness and the using of opportunistic locks to boost speed;
-      \item Read-ahead and write-behind functions together with opportunistic
-            locks to help clients cache aggressively;
-      \item Security measures such as Kerberos, NTLMv2, message signing and
-            optional encryption;
-      \item Optimal performance on Windows and newer macOS with SMB 3 support;
-      \item Excellent compatibility as the protocol is built into most modern
-            platforms including Windows, macOS, and Linux.
-\end{itemize}
-The SMB protocol has successfully replaced AFP even in pure macOS environments.
-It has therefore become the default choice for modern networks with mixed devices.
+% The SMB protocol is a widely-used file sharing protocol primarily designed for
+% Windows environments. Its key features include\cite{eriksenCOMPARISONNFSSAMBA}:
+% \begin{itemize}[nosep]
+%       \item Statefulness and the using of opportunistic locks to boost speed;
+%       \item Read-ahead and write-behind functions together with opportunistic
+%             locks to help clients cache aggressively;
+%       \item Security measures such as Kerberos, NTLMv2, message signing and
+%             optional encryption;
+%       \item Optimal performance on Windows and newer macOS with SMB 3 support;
+%       \item Excellent compatibility as the protocol is built into most modern
+%             platforms including Windows, macOS, and Linux.
+% \end{itemize}
+% The SMB protocol has successfully replaced AFP even in pure macOS environments.
+% It has therefore become the default choice for modern networks with mixed devices.
+
+How would one host files that they need to share externally? They can either run
+an HTTP(S) server such as Apache or Nginx and also enable the \texttt{autoindex}
+mode. You may have seen this sort of webpage while browsing kernel files.
+
+Another option is to run an FTP server. FTP stands for File Transfer Protocol
+and as such shares files. FTP doesn't come with encryption or authentication
+built in though it does offer tooling that is more advanced that the HTTP(S)
+route.
+
+A common threat to filesharing is the Digital Millennium Copyright Act
+(\cite{DigitalMillenniumCopyright2025}) which allows for \emph{takedown
+      requests} to be sent to sites that are hosting copyrighted content without
+permission to be sent to sites that are hosting copyrighted content without
+permission. If you get a DMCA request (usually sent to your Internet Services
+Provider, or ISP) you have to take down the content or have your internet
+connection shut off. The best way to avoid getting taken down with a server of
+copyrighted files is to stay away from indexers that would put you under the
+spotlight.
+
+
 \subsection{Usenet}
 
+A system that transcends the usual client-server model of downloading is Usenet.
 Usenet emerged in 1980 at Duke University, where it initially served as a
 bulletin board system but later evolved into a global network of distributed
 discussion forums.\cite{HowUseUsenet} It organized discussions into thousands of
 newsgroups covering different topics, where users would post messages in
 threads. By 1999, the size of Usenet had already reached approximately 20,000
 newsgroups, making it one of the most diverse platforms on the Internet.
-As per Ohm's framework, Usenet is an exempular "Stage II" Internet space which remains vibrant despite having moved beyond the initial creation phase -- it still accommodates frequent creation of alternative spaces, evidenced by the community's strong self-governance abilties elaborated above.\cite{ohmRegulatingInternetUsenet1998}
+
+Paul Ohm described a framework of four stages for internet ``spaces''. Stage I
+is ``before any new spaces have been created.'' Stage II includes spinning off
+of spaces (e.g., a Usenet archive which is itself a separate space from the
+Usenet server which expires messages). Stage III is more mature with fewer
+spin-offs. Finally, Stage IV ``marks stability and possibly decline.'' As per
+Ohm's framework, Usenet is an exemplar "Stage II" Internet space which remains
+vibrant despite having moved beyond the initial creation phase---it still
+accommodates frequent creation of alternative spaces, evidenced by the
+community's strong self-governance.\cite{ohmRegulatingInternetUsenet1998} This
+self-governance includes removing content that is against ``netiquette''
+(discussed below) or illegal (a DMCA takedown). Usenet files that are subject to
+a DMCA takedown can be downloaded before the DMCA takedown request is processed.
+Then the file can be redistributed on bittorrent (\ref{bittorrent}) which allows
+files to be redistributed with few limitations.
 
 \subsubsection{The Architecture of Usenet} The design of
 Usenet was unprecedented at the time -- instead of storing data centrally at
@@ -118,7 +155,11 @@ all posts from entire ISPs) and sophisticated filtering systems such as
 
 \cite{HowUseUsenet,ohmRegulatingInternetUsenet1998}
 
-\subsection{Bittorrent}
+\subsection{Mesh Networks}
+
+\cite{kamaliAnixAnonymousBlackoutResistant}
+
+\subsection{Bittorrent} \label{bittorrent}
 
 \subsection{Virtual Private Networks (VPNs)}
 
