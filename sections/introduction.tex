@@ -87,7 +87,7 @@ copyrighted files is to stay away from indexers that would put you under the
 spotlight.
 
 
-\subsection{Usenet}
+\subsection{Usenet}\label{usenet}
 
 A system that transcends the usual client-server model of downloading is Usenet.
 Usenet emerged in 1980 at Duke University, where it initially served as a
@@ -144,46 +144,123 @@ The Usenet was equipped with a built-in ``cancel-message'' feature, which was
 originally designed to enable users to delete their own posts. However, the tool
 was soon weaponized when users discovered that forging addresses allowed them to
 cancel anyone's messages. This feature was utilized by anti-spam activists --
-who began with good intentions -- to empower automated ``cancelbots'' to detect
+who began with good intentions---to empower automated ``cancelbots'' to detect
 and remove commercial spams, while others revenge by creating ``resurrector
 bots'' that automatically repost cancelled messages. The conflict between two
 parties eventually escalated to include ``Usenet Death Penalities'' (cancelling
 all posts from entire ISPs) and sophisticated filtering systems such as
 ``NoCeM'' that hide rather than delete undesirable messages.
 
-
-
-\cite{HowUseUsenet,ohmRegulatingInternetUsenet1998}
-
 \subsection{Mesh Networks}
 
-\cite{kamaliAnixAnonymousBlackoutResistant}
+If you have bought a home WiFi router in recent years you might have seen
+``mesh'' networks. These are WiFi devices that relay messages in the zone of a
+single access point (AP) to extend the range of your connection. Similarly, mesh
+networks can be used for communication.
+\cite{kamaliAnixAnonymousBlackoutResistant} The beauty of mesh topology lies in its self-healing properties---when one node fails, the network automatically reroutes traffic through alternative paths, making it inherently resilient.
+We can easily extend this usage of
+text-based communication to sharing files. In fact, there has been considerable research in this area, part
 
 \subsection{Bittorrent} \label{bittorrent}
 
-\subsection{Virtual Private Networks (VPNs)}
+Bittorrent (BT) is one of the most popular ways of sharing files online. The
+idea behind BT is that the \emph{parts} of a file which are
+\emph{least-available} are the ones that need to be propagated first to improve the performance of the network. In the early days of BT \emph{trackers} were used to track which clients had different parts of the files. The downside of this is that trackers could be taken down! One notable examples is The Pirate Bay which is frequently taken down in one nation and then pops back up somewhere else.
+
+An alternative to trackers was needed and this is where the Distributed Hash Table comes in. Rather than going to a server to find the peers, the DHT is a global hash table that stores mapping from torrent hashes to the clients that can be connected.
+
+\subsubsection{Legal Issues}
+
+We discussed in the section on Usenet (\ref{usenet}) that DMCA takendown
+requests can remove illegal files off of the network. In the case of Bittorrent,
+the takedowns are issues at \emph{you}, the user. The exception to this rule is
+if you're using some sorts of Virtual Private Networks (VPNs, below).
+
+\subsection{Virtual Private Networks (VPNs)}\label{vpn}
+
+A Virtual Private Network (VPN) is a network that operates on top of the
+underlying network infrastructure which presents a view of disparate computers
+connected under a single infrastructure. For example, if I have a server,
+\texttt{alice.example.com}, hosted on AWS, and my PC, \texttt{bob.example.com},
+at home, then I can create a VPN that I can connect to which will make it look
+like the servers are on the same network.
+
+The usage of VPNs in the case of using Bitorrent is a bit differnet. Here, the
+goal is to pass all of our network traffic through a third party so that we
+don't leak our IP address to copyright holders which will then try to get our
+internet service shut off. VPNs operate through weird legal mechanisms and often
+\emph{don't keep logs} so even when they do get a takedown request they don't
+know you're the one they need to give it to.
 
 \subsection{Shadow Libraries}
 
-\subsection{Tor}
+Shadow Libraries are centralized webpages\footnote{Examples: LibGen, SciHub, or,
+      now, Anna's Archive, \url{https://annas-archive.org/}} that provide stolen
+access to manuscripts and scanned media. These sites then may redistribute
+the files through \emph{mirrors}, Tor (\ref{tor}), I2P (\ref{i2p}), or
+IPFS (\ref{ipfs}). Shadow libraries operate on a wide array of domains as
+they are frequently taken down.
+
+\subsection{Tor}\label{tor}
+
+The Onion Router (Tor, \cite{TorProjectPrivacy}) is a novel system for providing
+anonymous access to the Internet via \emph{circuits} of guard, relay, and exit
+nodes. When you run Tor, your computer picks the three aforementioned nodes and
+then encrypts your message in layers (like an onion) so that the message can be
+transitted across the circuit such that each node only knows the previous and
+next stops.
+
+Tor uses centralized Directory Authorities \cite{TorProjectDirectory} to create
+the list of relays.
 
 TODO: \cite{iszaevichDistributedDetectionTor2019} discusses Tor in Mexico.
 \cite{hollerCaseStudyDDoS2024} discusses DDOS attacks on Tor relays.
 
-Tor uses centralized Directory Authorities \cite{TorProjectDirectory} to create
-the list of relays.
 
 Tor uses fixed circuits for bidirectional
 communication.\cite{AnalyzingTrendsTor} Tor relays have one of four specialized
 roles: Guard, Middle, Exit, and Bridge. Unlike I2P, clients are not also
 routers.
 
-\subsection{I2P}
+\subsection{I2P}\label{i2p}
 
-I2P uses a DHT for routers unlike Tor's centralized Directory
-Authorities.\cite{NetworkDatabaseI2P} Despite this, I2P has centralization when
-``bootstrapping'' using the reseed servers.
+I2P, the Invisible Internet Project (\cite{I2PAnonymousNetwork}) has similar
+goals to Tor but is primarily concerned with \emph{eepsites}, which are the
+equivalent fo Tor's onion servics. I2P uses a DHT for routers unlike Tor's
+centralized Directory Authorities.\cite{NetworkDatabaseI2P} Despite this, I2P
+has centralization when ``bootstrapping'' using the reseed servers.
 
 I2P uses uni-directional packet switching \cite{I2PComparedTor}.
 
-\subsection{IPFS}
+\subsection{IPFS}\label{ipfs}
+
+IPFS (\cite{IPFSBuildingBlocks}) is a distributed filesystem. It has mechanisms
+for DMCA takedowns and is generally considered easier to censor that Bittorrent,
+and certainly easier than I2P or Tor. You can download desktop software to add
+files to IPFS and you can also \emph{pin} other files to keep them on your
+system. If you don't pin a file its local storage is treated as a cachce
+\cite{HostSinglepageWebsite} and can be removed to make space for other files.
+
+\subsection{Legally Hardened System}
+
+There is a paper that described a \textsc{p2p} system which doesn't require a
+file to be stored (even encrypted) on a
+node.\cite{CensorshipresistantAnonymousP2P} This provides the advantage that if
+a censor knows the fingerprint of a file then they will no be able to block the
+file on this network as only the receiver is able to identify the file being
+transmitted.
+
+
+In the \textsc{ipfs} there is (or was) a mechanism for censoring content by
+messing with the Distributed Hash
+Table.\cite{sridharContentCensorshipInterPlanetary2023}
+
+\subsection{Motivations for Stealing}
+In a study conducted in Singapore, the authors found that users of \textsc{p2p}
+file sharing did so for the following reasons:\cite{MoreJustFree}
+\begin{enumerate}[nosep]
+      \item Public methods are too slow;
+      \item Hard to find or censored content;
+      \item Sampling content;
+      \item Because it's free.
+\end{enumerate}
