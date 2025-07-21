@@ -129,6 +129,20 @@ all posts from entire ISPs) and sophisticated filtering systems such as
 TODO: \cite{iszaevichDistributedDetectionTor2019} discusses Tor in Mexico.
 \cite{hollerCaseStudyDDoS2024} discusses DDOS attacks on Tor relays.
 
+Tor uses centralized Directory Authorities \cite{TorProjectDirectory} to create
+the list of relays.
+
+Tor uses fixed circuits for bidirectional
+communication.\cite{AnalyzingTrendsTor} Tor relays have one of four specialized
+roles: Guard, Middle, Exit, and Bridge. Unlike I2P, clients are not also
+routers.
+
 \subsection{I2P}
+
+I2P uses a DHT for routers unlike Tor's centralized Directory
+Authorities.\cite{NetworkDatabaseI2P} Despite this, I2P has centralization when
+``bootstrapping'' using the reseed servers.
+
+I2P uses uni-directional packet switching \cite{I2PComparedTor}.
 
 \subsection{IPFS}
