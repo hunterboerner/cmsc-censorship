@@ -105,12 +105,12 @@ spin-offs. Finally, Stage IV ``marks stability and possibly decline.'' As per
 Ohm's framework, Usenet is an exemplar "Stage II" Internet space which remains
 vibrant despite having moved beyond the initial creation phase---it still
 accommodates frequent creation of alternative spaces, evidenced by the
-community's strong self-governance.\cite{ohmRegulatingInternetUsenet1998} This
-self-governance includes removing content that is against ``netiquette''
-(discussed below) or illegal (a DMCA takedown). Usenet files that are subject to
-a DMCA takedown can be downloaded before the DMCA takedown request is processed.
-Then the file can be redistributed on bittorrent (\ref{bittorrent}) which allows
-files to be redistributed with few limitations.
+community's strong self-governance. This self-governance includes removing
+content that is against ``netiquette'' (discussed below) or illegal (a DMCA
+takedown). Usenet files that are subject to a DMCA takedown can be downloaded
+before the DMCA takedown request is processed. Then the file can be
+redistributed on bittorrent (\ref{bittorrent}) which allows files to be
+redistributed with few limitations.
 
 \subsubsection{The Architecture of Usenet} The design of
 Usenet was unprecedented at the time -- instead of storing data centrally at
@@ -151,7 +151,7 @@ parties eventually escalated to include ``Usenet Death Penalities'' (cancelling
 all posts from entire ISPs) and sophisticated filtering systems such as
 ``NoCeM'' that hide rather than delete undesirable messages.
 
-\subsection{Mesh Networks}
+% \subsection{Mesh Networks}
 
 If you have bought a home WiFi router in recent years you might have seen
 ``mesh'' networks. These are WiFi devices that relay messages in the zone of a
@@ -256,29 +256,62 @@ IPFS (\cite{IPFSBuildingBlocks}) is a distributed filesystem. It has mechanisms
 for DMCA takedowns and is generally considered easier to censor that Bittorrent,
 and certainly easier than I2P or Tor. You can download desktop software to add
 files to IPFS and you can also \emph{pin} other files to keep them on your
-system. If you don't pin a file its local storage is treated as a cachce
+system. If you don't pin a file its local storage is treated as a cache
 \cite{HostSinglepageWebsite} and can be removed to make space for other files.
 
-\subsection{Legally Hardened System}
+% \subsection{Legally Hardened System}
 
-There is a paper that describes a \textsc{p2p} system which doesn't require a
-file to be stored (even encrypted) on a
-node.\cite{CensorshipresistantAnonymousP2P} This provides the advantage that if
-a censor knows the fingerprint of a file then they will no be able to block the
-file on this network as only the receiver is able to identify the file being
-transmitted.
+% There is a paper that describes a \textsc{p2p} system which doesn't require a
+% file to be stored (even encrypted) on a
+% node.\cite{CensorshipresistantAnonymousP2P} This provides the advantage that if
+% a censor knows the fingerprint of a file then they will no be able to block the
+% file on this network as only the receiver is able to identify the file being
+% transmitted.
 
 
-% In the \textsc{ipfs} there is (or was) a mechanism for censoring content by
-% messing with the Distributed Hash
-% Table.\cite{sridharContentCensorshipInterPlanetary2023}
+% % In the \textsc{ipfs} there is (or was) a mechanism for censoring content by
+% % messing with the Distributed Hash
+% % Table.\cite{sridharContentCensorshipInterPlanetary2023}
 
-\subsection{Motivations for Stealing}
-In a study conducted in Singapore, the authors found that users of \textsc{p2p}
-file sharing did so for the following reasons:\cite{MoreJustFree}
-\begin{enumerate}[nosep]
-      \item Public methods are too slow;
-      \item Hard to find or censored content;
-      \item Sampling content;
-      \item Because it's free.
-\end{enumerate}
+% \subsection{Motivations for Stealing}
+% In a study conducted in Singapore, the authors found that users of \textsc{p2p}
+% file sharing did so for the following reasons:\cite{MoreJustFree}
+% \begin{enumerate}[nosep]
+%       \item Public methods are too slow;
+%       \item Hard to find or censored content;
+%       \item Sampling content;
+%       \item Because it's free.
+% \end{enumerate}
+
+\section{Censorship Methods}
+
+Now we will discuss the various methods that can be used to censor the protocols
+just discussed.
+
+One technique is rerouting or dropping IPv4/IPv6 packets.
+\cite{wendzelSurveyInternetCensorship2025}
+
+
+Iran recently deployed a \emph{protocol filter} which blocks any protocols
+besides DNS, HTTP, and HTTPS. \cite{bockDetectingEvadingCensorshipDepth} In this
+setup once a disallowed protocol is detected all of the client to server data is
+dropped. With TCP this means that ACK packets cannot be sent which effectively
+kills the connection. \cite[\S 4.1]{bockDetectingEvadingCensorshipDepth}
+Strangely, ports not used for DNS, HTTP, and HTTPS are \emph{not} filtered.
+Since the filter only looks at the first two packets it's theoretically possible
+to circumvent the filter by sending two special first packets that are initially
+ignored by the server.
+
+BGP based censorship is too coarse grained to be an effective file sharing
+censorship technique. Sure, taking an entire country offline will prevent
+downloading files, but it also prevents any and all other traffic.\cite[p.\@
+      5]{wendzelSurveyInternetCensorship2025}
+
+The transport layer (TCP, UDP) is another place where censorship can be
+implemented.\cite[p.\@ 5]{wendzelSurveyInternetCensorship2025}
+
+DNS can also be targeted even if the adversary can only monitor the DNS
+connection. In this situation the adversary can respond faster than the
+authoritative DNS server with a bogus DNS response.\cite[p.\@
+      6]{wendzelSurveyInternetCensorship2025}
+
