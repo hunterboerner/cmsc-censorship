@@ -1,13 +1,21 @@
-\section{Introduction}\label{sec:intro}
+\section{Introduction to Filesharing Protocols}\label{sec:intro}
 
-Adversaries on the Internet may attempt to prevent access to various
-information. As a result of these censorship efforts developers have made a
-variety of systems for circumventing said blocks. The largest variety of efforts
-have been targeted at sharing files with fewer attempts at providing general
-access to the internet over \textsc{http}/\textsc{https}.
+% Adversaries on the Internet may attempt to prevent access to various
+% information. As a result of these censorship efforts developers have made a
+% variety of systems for circumventing said blocks. The largest variety of efforts
+% have been targeted at sharing files with fewer attempts at providing general
+% access to the internet over \textsc{http}/\textsc{https}.
 
-We will examine various protocols for filesharing and their susceptibility to
-censorship.
+% We will examine various protocols for filesharing and their susceptibility to
+% censorship.
+
+We begin our overview of filesharing on the Internet with an examination of
+networked filesharing protocols and Usenet. These methods predate
+much of a concern for secure communications, in fact, encryption technologies
+were once subject to both legal and export restrictions.
+We will defer our discussion of censorship to a more detailed discussion of
+censorship techniques in section \S
+\ref{censorship}.
 
 \subsection{Networked Filesharing Protocols}
 
@@ -77,14 +85,13 @@ built in though it does offer tooling that is more advanced that the HTTP(S)
 route.
 
 A common threat to filesharing is the Digital Millennium Copyright Act
-(\cite{DigitalMillenniumCopyright2025}) which allows for \emph{takedown
-      requests} to be sent to sites that are hosting copyrighted content without
-permission to be sent to sites that are hosting copyrighted content without
-permission. If you get a DMCA request (usually sent to your Internet Services
-Provider, or ISP) you have to take down the content or have your internet
-connection shut off. The best way to avoid getting taken down with a server of
-copyrighted files is to stay away from indexers that would put you under the
-spotlight.
+\cite{DigitalMillenniumCopyright2025} which allows for \emph{takedown requests}
+to be sent to sites that are hosting copyrighted content without permission to
+be sent to sites that are hosting copyrighted content without permission. If you
+get a DMCA request (usually sent to your Internet Services Provider, or ISP) you
+have to take down the content or have your internet connection shut off. The
+best way to avoid getting taken down with a server of copyrighted files is to
+stay away from indexers that would put you under the spotlight.
 
 
 \subsection{Usenet}\label{usenet}
@@ -109,7 +116,7 @@ community's strong self-governance. This self-governance includes removing
 content that is against ``netiquette'' (discussed below) or illegal (a DMCA
 takedown). Usenet files that are subject to a DMCA takedown can be downloaded
 before the DMCA takedown request is processed. Then the file can be
-redistributed on bittorrent (\ref{bittorrent}) which allows files to be
+redistributed on bittorrent (\S \ref{bittorrent}) which allows files to be
 redistributed with few limitations.
 
 \subsubsection{The Architecture of Usenet} The design of
@@ -188,7 +195,7 @@ An alternative to trackers was needed and this is where the Distributed Hash Tab
 
 \subsubsection{Legal Issues}
 
-We discussed in the section on Usenet (\ref{usenet}) that DMCA takendown
+We discussed in the section on Usenet (\S \ref{usenet}) that DMCA takedown
 requests can remove illegal files off of the network. In the case of Bittorrent,
 the takedowns are issues at \emph{you}, the user. The exception to this rule is
 if you're using some sorts of Virtual Private Networks (VPNs, below).
@@ -197,26 +204,26 @@ if you're using some sorts of Virtual Private Networks (VPNs, below).
 
 A Virtual Private Network (VPN) is a network that operates on top of the
 underlying network infrastructure which presents a view of disparate computers
-connected under a single infrastructure. For example, if I have a server,
-\texttt{alice.example.com}, hosted on AWS, and my PC, \texttt{bob.example.com},
-at home, then I can create a VPN that I can connect to which will make it look
-like the servers are on the same network.
+connected under a single infrastructure. For example, if I have a server, say,
+\texttt{alice.example.com}, hosted on AWS, and my PC at home,
+\texttt{bob.example.com}, at home, then I can create a VPN that I can connect to
+which will make it look like the servers are on the same network.
 
-The usage of VPNs in the case of using Bitorrent is a bit differnet. Here, the
+The usage of VPNs in the case of using Bittorrent is a bit different. Here, the
 goal is to pass all of our network traffic through a third party so that we
 don't leak our IP address to copyright holders which will then try to get our
 internet service shut off. VPNs operate through weird legal mechanisms and often
 \emph{don't keep logs} so even when they do get a takedown request they don't
 know you're the one they need to give it to.
 
-\subsection{Shadow Libraries}
+\subsection{Shadow Libraries}\label{shadow}
 
 Shadow Libraries are centralized webpages\footnote{Examples: LibGen, SciHub, or,
       now, Anna's Archive, \url{https://annas-archive.org/}} that provide stolen
 access to manuscripts and scanned media. These sites then may redistribute
-the files through \emph{mirrors}, Tor (\ref{tor}), I2P (\ref{i2p}), or
-IPFS (\ref{ipfs}). Shadow libraries operate on a wide array of domains as
-they are frequently taken down.
+the files through \emph{mirrors}, Tor (\S \ref{tor}), I2P (\S \ref{i2p}),
+or IPFS (\S \ref{ipfs}). Shadow libraries operate on a wide array of
+domains as they are frequently taken down.
 
 \subsection{Tor}\label{tor}
 
@@ -237,22 +244,26 @@ bidirectional communication.\cite{AnalyzingTrendsTor} Tor relays have one of
 four specialized roles: Guard, Middle, Exit, and Bridge. Unlike I2P, clients are
 not also routers.
 
+Tor supports \emph{pluggable transports} \label{pluggable_transports} which is a
+mechanism that allows Tor traffic to look like a different protocol, such as
+HTTP or HTTPS.
+
 \subsection{I2P}\label{i2p}
 
-I2P, the Invisible Internet Project (\cite{I2PAnonymousNetwork}) has similar
+I2P, the Invisible Internet Project \cite{I2PAnonymousNetwork} has similar
 goals to Tor but is primarily concerned with \emph{eepsites}, which are the
-equivalent fo Tor's onion servics. I2P uses a DHT for routers unlike Tor's
+equivalent fo Tor's onion services. I2P uses a DHT for routers unlike Tor's
 centralized Directory Authorities.\cite{NetworkDatabaseI2P} Despite this, I2P
 has centralization when ``bootstrapping'' using the reseed servers.
 
-I2P uses unui-directional packet switching \cite{I2PComparedTor} whera Tor uses
+I2P uses uni-directional packet switching \cite{I2PComparedTor} whereas Tor uses
 bi-directional circuits. Furthermore, I2P uses \emph{garlic routing} which is
 very similar to onion routing but where related messages going to the next hop
-are bundleed together.
+are bundled together.
 
 \subsection{IPFS}\label{ipfs}
 
-IPFS (\cite{IPFSBuildingBlocks}) is a distributed filesystem. It has mechanisms
+IPFS \cite{IPFSBuildingBlocks} is a distributed filesystem. It has mechanisms
 for DMCA takedowns and is generally considered easier to censor that Bittorrent,
 and certainly easier than I2P or Tor. You can download desktop software to add
 files to IPFS and you can also \emph{pin} other files to keep them on your
@@ -283,24 +294,31 @@ system. If you don't pin a file its local storage is treated as a cache
 %       \item Because it's free.
 % \end{enumerate}
 
-\section{Censorship Methods}
+\section{Censorship Methods}\label{censorship}
 
-Now we will discuss the various methods that can be used to censor the protocols
-just discussed.
+In this section, we outline the various technical methods that can be used to
+censor filesharing protocols, analyzing how these various filesharing protocols
+are disrupted across different layers of the stack. We focus on real-world
+examples such as Iran, and the Great Firewall of China, and evaluate the
+effectiveness and limitations to each approach.
 
 One technique is rerouting or dropping IPv4/IPv6 packets.
-\cite{wendzelSurveyInternetCensorship2025}
+\cite{wendzelSurveyInternetCensorship2025} If we look back to the previously
+mentioned network file protocols (NFS, AFP, and SMB), bittorrent, usenet, and
+FTP then we can imagine how a censor would be able to detect these (unencrypted)
+protocols and start dropping the IP packets. I2P also suffers a similar issue of
+revealing its protocol but Tor may be able to be blocked using pluggable
+transports (\S \ref{pluggable_transports}).
 
-
-Iran recently deployed a \emph{protocol filter} which blocks any protocols
-besides DNS, HTTP, and HTTPS. \cite{bockDetectingEvadingCensorshipDepth} In this
-setup once a disallowed protocol is detected all of the client to server data is
-dropped. With TCP this means that ACK packets cannot be sent which effectively
-kills the connection. \cite[\S 4.1]{bockDetectingEvadingCensorshipDepth}
-Strangely, ports not used for DNS, HTTP, and HTTPS are \emph{not} filtered.
-Since the filter only looks at the first two packets it's theoretically possible
-to circumvent the filter by sending two special first packets that are initially
-ignored by the server.
+In recent news, Iran recently deployed a \emph{protocol filter} which blocks any
+protocols besides DNS, HTTP, and HTTPS.
+\cite{bockDetectingEvadingCensorshipDepth} In this setup once a disallowed
+protocol is detected all of the client to server data is dropped. With TCP this
+means that ACK packets cannot be sent which effectively kills the connection.
+\cite[\S 4.1]{bockDetectingEvadingCensorshipDepth} Strangely, ports not used for
+DNS, HTTP, and HTTPS are \emph{not} filtered. Since the filter only looks at the
+first two packets it's theoretically possible to circumvent the filter by
+sending two special first packets that are initially ignored by the server.
 
 BGP based censorship is too coarse grained to be an effective file sharing
 censorship technique. Sure, taking an entire country offline will prevent
@@ -313,5 +331,57 @@ implemented.\cite[p.\@ 5]{wendzelSurveyInternetCensorship2025}
 DNS can also be targeted even if the adversary can only monitor the DNS
 connection. In this situation the adversary can respond faster than the
 authoritative DNS server with a bogus DNS response.\cite[p.\@
-      6]{wendzelSurveyInternetCensorship2025}
+      6]{wendzelSurveyInternetCensorship2025} Shadow libraries (\S \ref{shadow})
+frequently lose their domain host and can have their DNS records manipulated.
+This is why there are so many Top-Level Domains hosting SciHub---one is taken
+down, another one goes up.
 
+HTTP, when unencrypted, provides an excellent surface to enable filtering. This
+is because the HTTP payload provides ample context to determine if a request
+should be censored. If a users searches for a dissident in China and the request
+is readable by the censors, then the censor can just filter the result. This is
+how Baidu works with its integration with the CCP. The NSA has used a
+\emph{man-on-the-side} attack that is reminiscent of the DNA fronting hijack
+whereby an adversary responds faster than the authentic site, causing the user
+to download malware instead of the site content. The legitimate content is then
+seen as duplicate messages and is dropped by the network card.
+
+Other unencrypted application protocols suffer the same issues. In mainland
+China, many Western applications have been cloned and replaced with surveillance
+and censorship functionality to achieve the goals of the CCP.
+
+Although we mentioned HTTPS has a better attack surface, it is not immune. HTTPS
+uses the Server-Name Indication to convey the server domain in cleartext so that
+web servers can determine which certificate to use to decrypt the message. There
+is a workaround to this: Encrypted SNI (ESNI). \cite[p.\@
+      8]{wendzelSurveyInternetCensorship2025} In this setup the client gets a DNS TXT
+record to determine what key to use to sign the ESNI. Then the events proceed as
+normal except the SNI is encrypted.
+
+Since VPNs usually have multiple users at a time, the endpoint of a VPN can be
+blocked by an ISP or nation-state which will disallow access to anyone using
+that VPN.\cite[p.\@ 8]{wendzelSurveyInternetCensorship2025} This can easily be
+done with IP blocking or port filtering but also can be achieved with Deep
+Packet Inspection, although this is much more costly.
+
+Tor might be vulnerable to \emph{timing attacks} if the adversary has access to
+enough Tor nodes.\cite[p.\@ 9]{wendzelSurveyInternetCensorship2025}
+
+In China, where the Tor Directory Nodes are blocked, the alternative methods of getting on to the Tor network represent another attack vector.
+
+There is another approach that we have only briefly mentioned: malware. If you
+can infect a computer with malware you can do almost anything you want to the
+user.
+
+A \emph{smear attack} is where content forums are manipulated to make the site
+less attractive. If your favorite forum is suddenly overrun with propaganda you
+may be less inclined to visit it.
+
+In Iran's DNS censorship they made an error with the filtering code
+\cite{bockDetectingEvadingCensorshipDepth} such that the first DNS over TCP
+packet is never blocked but subsequent messages are. Similarly, the HTTPS filter
+just ensures TLS is used, it doesn't actually block anything! The authors
+prevent a few ways of circumventing the filter. For the second one where two
+\textsc{fin} packets are sent before the connection starts, the researchers note
+``We do not understand why this strategy works[.]'' Another strategy is to send
+nine \textsc{ack}s or any nine non-data-carrying packets.
