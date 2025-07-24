@@ -335,20 +335,21 @@ common attack is where censors monitor DNS queries and replies with spoofed or p
 responses faster than the legitimate server. This approach is used to block access to shadow libraries, 
 which frequently change domains in response. As one domain is seized or blocked, another is launched. 
 For instance SciHub and LibGen often operate across multiple top-level domains to evade these 
-DNS-level takedowns. 
+DNS-level takedowns \cite{bortzmeyer2017scihub}. 
 
 More advanced DNS attacks include DNS injection and recursive poisoning. These attacks can disrupt 
 not only access to filesharing domains but also block access to circumvention tools such as proxy 
-lists and key exchange servers. The combination of DNS filtering along with IP filtering can be devastatingly 
-effective against naive users.
+lists and key exchange servers. The combination of DNS filtering along with IP filtering can be 
+devastatingly effective against naive users.
 
-Some censorship goes beyond DNS and IP manipulation, through attacking the routing infrastructure. Turkey
-has previously committed this instance of censorship by conducting BGP hijacks to redirect traffic from 
-blocked services. Turkish Authorities, in 2014, initiated a BGP hijack in which they rerouted traffic 
-from these blocked services, to their own DNS resolvers. This attack poisoned upstream routes at the ISP level, 
-thus ensuring that users traffic would still be intercepted and misdirected even if they manually 
-set alternative DNS servers. BGP based censorship like this is particularly destructive as it not only 
-affects domestic users but can also spill over into neighboring networks, creating collateral damage \cite{chung2017dnssec}. 
+Some censorship goes beyond DNS and IP manipulation, through attacking the routing infrastructure. 
+Turkeyhas previously committed this instance of censorship by conducting BGP hijacks to redirect 
+traffic from blocked services. Turkish Authorities, in 2014, initiated a BGP hijack in which 
+they rerouted traffic from these blocked services, to their own DNS resolvers. This attack poisoned 
+upstream routes at the ISP level \cite{internetsociety2014_hijack}, thus ensuring that users 
+traffic would still be intercepted and misdirected even if they manually set alternative DNS 
+servers. BGP based censorship like this is particularly destructive as it not only affects domestic 
+users but can also spill over into neighboring networks, creating collateral damage \cite{chung2017dnssec}. 
 
 The transport layer (TCP, UDP) is another place where censorship can be
 implemented.\cite[p.\@ 5]{wendzelSurveyInternetCensorship2025}
