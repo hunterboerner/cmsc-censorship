@@ -330,13 +330,6 @@ censorship technique. While taking an entire country offline will prevent
 downloading files, it also prevents any and all other traffic.\cite[p.\@
       5]{wendzelSurveyInternetCensorship2025}
 
-Censors often interfere with DNS in order to prevent access to filsharing resouces. A
-common attack is where censors monitor DNS queries and replies with spoofed or poisoned 
-responses faster than the legitimate server. This approach is used to block access to shadow libraries, 
-which frequently change domains in response. As one domain is seized or blocked, another is launched. 
-For instance SciHub and LibGen often operate across multiple top-level domains to evade these 
-DNS-level takedowns \cite{bortzmeyer2017scihub}. 
-
 More advanced DNS attacks include DNS injection and recursive poisoning. These attacks can disrupt 
 not only access to filesharing domains but also block access to circumvention tools such as proxy 
 lists and key exchange servers. The combination of DNS filtering along with IP filtering can be 
@@ -358,7 +351,11 @@ DNS can also be targeted even if the adversary can only monitor the DNS
 connection. In this situation the adversary can respond faster than the
 authoritative DNS server with a bogus DNS response.\cite[p.\@
       6]{wendzelSurveyInternetCensorship2025} Shadow libraries (\S \ref{shadow})
-frequently lose their domain host and can have their DNS records manipulated.
+frequently lose their domain host and can have their DNS records manipulated. 
+Censors monitor DNS queries and replies with spoofed or poisoned 
+responses faster than the legitimate server. As one domain is seized or 
+blocked, another is launched. For instance SciHub often operates across 
+multiple top-level domains to evade these DNS-level takedowns \cite{bortzmeyer2017scihub}. 
 This is why there are so many Top-Level Domains hosting SciHub---one is taken
 down, another one goes up.
 
