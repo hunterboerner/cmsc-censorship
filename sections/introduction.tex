@@ -302,28 +302,53 @@ are disrupted across different layers of the stack. We focus on real-world
 examples such as Iran, and the Great Firewall of China, and evaluate the
 effectiveness and limitations to each approach.
 
-One technique is rerouting or dropping IPv4/IPv6 packets.
+At the IP layer censorship can be carried out through rerouting or dropping IPv4/IPv6 packets.
 \cite{wendzelSurveyInternetCensorship2025} If we look back to the previously
-mentioned network file protocols (NFS, AFP, and SMB), bittorrent, usenet, and
+mentioned network file protocols (NFS, AFP, and SMB), bittorrent, Usenet, and
 FTP then we can imagine how a censor would be able to detect these (unencrypted)
 protocols and start dropping the IP packets. I2P also suffers a similar issue of
-revealing its protocol but Tor may be able to be blocked using pluggable
-transports (\S \ref{pluggable_transports}).
+revealing its protocol.  Tor, in contrast, attempts to avoid detection through obfuscation, 
+including pluggable transports (\S \ref{pluggable_transports}). Packet fingerprinting techniques 
+can be applied to spot non-standard protocols or encrypted payloads that deviate from normative 
+traffic patterns.
 
-In recent news, Iran recently deployed a \emph{protocol filter} which blocks any
-protocols besides DNS, HTTP, and HTTPS.
+Recent reports highlight Iran's deployment of a \emph{protocol filter} which blocks any
+protocol besides DNS, HTTP, and HTTPS.
 \cite{bockDetectingEvadingCensorshipDepth} In this setup once a disallowed
 protocol is detected all of the client to server data is dropped. With TCP this
-means that ACK packets cannot be sent which effectively kills the connection.
+means that (acknowledgement) ACK packets cannot be sent which effectively kills the connection.
 \cite[\S 4.1]{bockDetectingEvadingCensorshipDepth} Strangely, ports not used for
-DNS, HTTP, and HTTPS are \emph{not} filtered. Since the filter only looks at the
-first two packets it's theoretically possible to circumvent the filter by
-sending two special first packets that are initially ignored by the server.
+DNS, HTTP, and HTTPS are \emph{not} filtered. As Iran’s system does not block traffic based on port 
+numbers, this opens possible avenues for circumvention through crafted packet sequences.
+Since the filter only looks at the first two packets, it is theoretically possible to 
+circumvent the filter by sending two special first packets, initially ignored by the 
+server. Strategies include sending a sequence of empty packets or multiple FIN/ACK messages 
+to manipulate the connection state machine on both client and server sides.
 
 BGP based censorship is too coarse grained to be an effective file sharing
-censorship technique. Sure, taking an entire country offline will prevent
-downloading files, but it also prevents any and all other traffic.\cite[p.\@
+censorship technique. While taking an entire country offline will prevent
+downloading files, it also prevents any and all other traffic.\cite[p.\@
       5]{wendzelSurveyInternetCensorship2025}
+
+Censors often interfere with DNS in order to prevent access to filsharing resouces. A
+common attack is where censors monitor DNS queries and replies with spoofed or poisoned 
+responses faster than the legitimate server. This approach is used to block access to shadow libraries, 
+which frequently change domains in response. As one domain is seized or blocked, another is launched. 
+For instance SciHub and LibGen often operate across multiple top-level domains to evade these 
+DNS-level takedowns. 
+
+More advanced DNS attacks include DNS injection and recursive poisoning. These attacks can disrupt 
+not only access to filesharing domains but also block access to circumvention tools such as proxy 
+lists and key exchange servers. The combination of DNS filtering along with IP filtering can be devastatingly 
+effective against naive users.
+
+Some censorship goes beyond DNS and IP manipulation, through attacking the routing infrastructure. Turkey
+has previously committed this instance of censorship by conducting BGP hijacks to redirect traffic from 
+blocked services. Turkish Authorities, in 2014, initiated a BGP hijack in which they rerouted traffic 
+from these blocked services, to their own DNS resolvers. This attack poisoned upstream routes at the ISP level, 
+thus ensuring that users traffic would still be intercepted and misdirected even if they manually 
+set alternative DNS servers. BGP based censorship like this is particularly destructive as it not only 
+affects domestic users but can also spill over into neighboring networks, creating collateral damage. 
 
 The transport layer (TCP, UDP) is another place where censorship can be
 implemented.\cite[p.\@ 5]{wendzelSurveyInternetCensorship2025}
