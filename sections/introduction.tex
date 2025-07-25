@@ -348,7 +348,9 @@ spill over into neighboring networks, creating collateral damage
 \cite{chung2017dnssec}.
 
 The transport layer (TCP, UDP) is another place where censorship can be
-implemented.\cite[p.\@ 5]{wendzelSurveyInternetCensorship2025}
+implemented.\cite[p.\@ 5]{wendzelSurveyInternetCensorship2025} This can be done
+by dropping packets in the middle of a stream to make it look unreliable or this
+can be done during connection initialization to make it unreachable.
 
 DNS can also be targeted even if the adversary can only monitor the DNS
 connection. In this situation the adversary can respond faster than the
@@ -391,13 +393,18 @@ done with IP blocking or port filtering but also can be achieved with Deep
 Packet Inspection, although this is much more costly.
 
 Tor might be vulnerable to \emph{timing attacks} if the adversary has access to
-enough Tor nodes.\cite[p.\@ 9]{wendzelSurveyInternetCensorship2025}
+enough Tor nodes.\cite[p.\@ 9]{wendzelSurveyInternetCensorship2025} This is done
+by monitoring network traffic at the client and the server and using timing
+correlation to determine which client the server traffic is coming from.
 
-In China, where the Tor Directory Nodes are blocked, the alternative methods of getting on to the Tor network represent another attack vector.
+In China, where the Tor Directory Nodes are blocked, the alternative methods of
+getting on to the Tor network represent another attack vector. If a malicious
+Tor guard node is chosen then the entire circuit is vulnerable.
 
 There is another approach that we have only briefly mentioned: malware. If you
 can infect a computer with malware you can do almost anything you want to the
-user.
+user. A \emph{ransomware} attack where the computer is encrypted by an adversary
+is a form of censorship as you lose access to your entire filesystem.
 
 A \emph{smear attack} is where content forums are manipulated to make the site
 less attractive. If your favorite forum is suddenly overrun with propaganda you
@@ -411,3 +418,6 @@ prevent a few ways of circumventing the filter. For the second one where two
 \textsc{fin} packets are sent before the connection starts, the researchers note
 ``We do not understand why this strategy works[.]'' Another strategy is to send
 nine \textsc{ack}s or any nine non-data-carrying packets.
+
+This concludes our survey of censorship methods. As we have seen none of these
+are specific to filesharing and they cover a wide breadth of network layers.
